@@ -18,7 +18,7 @@
     "start": "npm run env -s && ng serve --aot --proxy-config proxy.conf.js",
     "serve:dev": "npm run env -s && ng serve",
     "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
-    "lint": "ng lint && stylelint \"src/**/*.scss\" && prettier . --check && htmlhint \"src\" --config .htmlhintrc",
+    "lint": "ng lint && stylelint \"src/**/*.scss\" && prettier . --check",
     "test": "npm run env -s && ng test",
     "test:ci": "npm run env -s && npm run lint -s && ng test --code-coverage --watch=false",
     "e2e": "ng e2e",
@@ -97,7 +97,6 @@
     "eslint": "^8.28.0",
     "git-describe": "^4.1.1",
     "hads": "^3.0.3",
-    "htmlhint": "1.1.4",
     "https-proxy-agent": "2.2.1",
     "husky": "^9.1.7",
     "jasmine-core": "^4.2.0",
@@ -135,7 +134,7 @@
     "npm": ">= 8.11.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --cache",
+    "*.{js,jsx,ts,tsx,html}": "eslint --cache",
     "*.{css,scss}": "stylelint",
     "*": "prettier --check --ignore-unknown"
   }

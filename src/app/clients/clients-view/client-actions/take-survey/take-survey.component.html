@@ -23,9 +23,8 @@
               <mat-radio-group fxFlex="60" [(ngModel)]="question.answer">
                 <mat-radio-button
                   fxLayout="column"
-                  class="radio-button"
+                  class="radio-button question-option-radio-button"
                   *ngFor="let options of question.responseDatas"
-                  style="margin-bottom: 5px; align-items: normal; white-space: normal"
                   [value]="options"
                 >
                   <span class="wrap-mat-radio-label">

@@ -36,4 +36,4 @@ Only use inline templates sparingly in very simple components with less than 3 l
 
 ## Enforcement
 
-Coding rules enforcement and basic sanity checks are done in this project by [HTMLHint](http://htmlhint.com).
+Coding rules enforcement and basic sanity checks are done in this project by [Angular ESLint](https://github.com/angular-eslint/angular-eslint).

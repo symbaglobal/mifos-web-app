@@ -8,12 +8,13 @@
   }
 
   @if (!forEditing) {
-    <table mat-table [dataSource]="repaymentScheduleDetails.periods" id="repaymentSchedule">
+    <table mat-table [dataSource]="repaymentScheduleDetails?.periods" id="repaymentSchedule">
       <ng-container matColumnDef="number">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef>#</th>
         <td mat-cell class="right" *matCellDef="let item">{{ item.period }}</td>
         <td mat-footer-cell *matFooterCellDef>&nbsp;</td>
       </ng-container>
+
       <ng-container matColumnDef="days">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef>{{ 'labels.inputs.Days' | translate }}</th>
         <td mat-cell class="center" *matCellDef="let item" [ngClass]="installmentStyle(item)">
@@ -21,6 +22,7 @@
         </td>
         <td mat-footer-cell class="center" *matFooterCellDef><b> Total</b></td>
       </ng-container>
+
       <ng-container matColumnDef="date">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef>{{ 'labels.inputs.Date' | translate }}</th>
         <td mat-cell class="m-r-5" *matCellDef="let item" [ngClass]="installmentStyle(item)">
@@ -28,6 +30,7 @@
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
+
       <ng-container matColumnDef="paiddate">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Paid Date' | translate }}
@@ -37,6 +40,7 @@
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
+
       <ng-container matColumnDef="check">
         <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
         <td mat-cell class="center" *matCellDef="let item" [ngClass]="installmentStyle(item)">
@@ -46,6 +50,7 @@
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
+
       <ng-container matColumnDef="balanceOfLoan">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Balance Of Loan' | translate }}
@@ -55,6 +60,7 @@
         </td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>&nbsp;</td>
       </ng-container>
+
       <ng-container matColumnDef="principalDue">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Principal Due' | translate }}
@@ -65,11 +71,12 @@
         <td mat-footer-cell class="check r-amount" *matFooterCellDef>
           <b>
             {{
-              repaymentScheduleDetails.totalPrincipalExpected | currency: currencyCode : 'symbol-narrow' : '1.2-2'
+              repaymentScheduleDetails?.totalPrincipalExpected | currency: currencyCode : 'symbol-narrow' : '1.2-2'
             }}</b
           >
         </td>
       </ng-container>
+
       <ng-container matColumnDef="interest">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Interest' | translate }}
@@ -79,10 +86,11 @@
         </td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
           <b>
-            {{ repaymentScheduleDetails.totalInterestCharged | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
+            {{ repaymentScheduleDetails?.totalInterestCharged | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
           </b>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="fees">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Fees' | translate }}
@@ -92,10 +100,11 @@
         </td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
           <b>
-            {{ repaymentScheduleDetails.totalFeeChargesCharged | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
+            {{ repaymentScheduleDetails?.totalFeeChargesCharged | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
           </b>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="penalties">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Penalties' | translate }}
@@ -106,11 +115,12 @@
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
           <b>
             {{
-              repaymentScheduleDetails.totalPenaltyChargesCharged | currency: currencyCode : 'symbol-narrow' : '1.2-2'
+              repaymentScheduleDetails?.totalPenaltyChargesCharged | currency: currencyCode : 'symbol-narrow' : '1.2-2'
             }}
           </b>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="due">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Due' | translate }}
@@ -120,10 +130,11 @@
         </td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
           <b>
-            {{ repaymentScheduleDetails.totalRepaymentExpected | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
+            {{ repaymentScheduleDetails?.totalRepaymentExpected | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
           </b>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="paid">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Paid' | translate }}
@@ -132,9 +143,10 @@
           {{ item.totalPaidForPeriod | formatNumber }}
         </td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
-          <b> {{ repaymentScheduleDetails.totalRepayment | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
+          <b> {{ repaymentScheduleDetails?.totalRepayment | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="inadvance">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.In advance' | translate }}
@@ -144,10 +156,11 @@
         </td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
           <b>
-            {{ repaymentScheduleDetails.totalPaidInAdvance | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
+            {{ repaymentScheduleDetails?.totalPaidInAdvance | currency: currencyCode : 'symbol-narrow' : '1.2-2' }}
           </b>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="late">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Late' | translate }}
@@ -156,9 +169,10 @@
           {{ item.totalPaidLateForPeriod | formatNumber }}
         </td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
-          <b> {{ repaymentScheduleDetails.totalPaidLate | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
+          <b> {{ repaymentScheduleDetails?.totalPaidLate | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
         </td>
       </ng-container>
+
       @if (isWaived) {
         <ng-container matColumnDef="waived">
           <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
@@ -168,7 +182,7 @@
             {{ item.totalWaivedForPeriod | formatNumber }}
           </td>
           <td mat-footer-cell class="r-amount" *matFooterCellDef>
-            <b> {{ repaymentScheduleDetails.totalWaived | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
+            <b> {{ repaymentScheduleDetails?.totalWaived | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
           </td>
         </ng-container>
       }
@@ -179,33 +193,39 @@
           <td mat-footer-cell *matFooterCellDef><b> </b></td>
         </ng-container>
       }
+
       <ng-container matColumnDef="outstanding">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Outstanding' | translate }}
         </th>
         <td mat-cell class="r-amount" *matCellDef="let item">{{ item.totalOutstandingForPeriod | formatNumber }}</td>
         <td mat-footer-cell class="r-amount" *matFooterCellDef>
-          <b> {{ repaymentScheduleDetails.totalOutstanding | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
+          <b> {{ repaymentScheduleDetails?.totalOutstanding | currency: currencyCode : 'symbol-narrow' : '1.2-2' }} </b>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="header">
         <th mat-header-cell *matHeaderCellDef [attr.colspan]="5"></th>
       </ng-container>
+
       <ng-container matColumnDef="header-amount">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef [attr.colspan]="2">
           {{ 'labels.inputs.Loan Amount and Balance' | translate }}
         </th>
       </ng-container>
+
       <ng-container matColumnDef="header-total-cost">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef [attr.colspan]="3">
           {{ 'labels.inputs.Total Cost of Loan' | translate }}
         </th>
       </ng-container>
+
       <ng-container matColumnDef="header-installment-totals">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef [attr.colspan]="6">
           {{ 'labels.inputs.Installment Totals' | translate }}
         </th>
       </ng-container>
+
       <tr
         mat-header-row
         *matHeaderRowDef="['header', 'header-amount', 'header-total-cost', 'header-installment-totals']"
@@ -217,12 +237,13 @@
   }
 
   <!-- Repayment Schedule to be Edited -->
-  @if (forEditing && repaymentScheduleDetails.periods.length > 0) {
-    <table mat-table [dataSource]="repaymentScheduleDetails.periods" id="repaymentScheduleEdit">
+  @if (forEditing && repaymentScheduleDetails?.periods?.length > 0) {
+    <table mat-table [dataSource]="repaymentScheduleDetails?.periods" id="repaymentScheduleEdit">
       <ng-container matColumnDef="number">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef>#</th>
         <td mat-cell *matCellDef="let item">{{ item.period }}</td>
       </ng-container>
+
       <ng-container matColumnDef="date">
         <th mat-header-cell class="center mat-header-cell" *matHeaderCellDef>{{ 'labels.inputs.Date' | translate }}</th>
         <td mat-cell class="m-r-10" *matCellDef="let item">
@@ -231,6 +252,7 @@
           </ng-container>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="balanceOfLoan">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Balance Of Loan' | translate }}
@@ -239,6 +261,7 @@
           {{ item.principalLoanBalanceOutstanding | formatNumber }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="principalDue">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Principal Due' | translate }}
@@ -249,18 +272,21 @@
           </ng-container>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="interest">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Interest' | translate }}
         </th>
         <td mat-cell class="r-amount" *matCellDef="let item">{{ item.interestOriginalDue | formatNumber }}</td>
       </ng-container>
+
       <ng-container matColumnDef="fees">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Fees' | translate }}
         </th>
         <td mat-cell class="r-amount" *matCellDef="let item">{{ item.feeChargesDue | formatNumber }}</td>
       </ng-container>
+
       <ng-container matColumnDef="due">
         <th mat-header-cell class="r-amount mat-header-cell" *matHeaderCellDef>
           {{ 'labels.inputs.Installment Amount' | translate }}
@@ -278,10 +304,11 @@
           }
         </td>
       </ng-container>
+
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Actions' | translate }}</th>
         <td mat-cell class="center" *matCellDef="let item">
-          @if (item.period && item.period + 1 < repaymentScheduleDetails.periods.length) {
+          @if (item.period && item.period + 1 < repaymentScheduleDetails?.periods?.length) {
             <span>
               <ng-container>
                 <button
@@ -310,6 +337,7 @@
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumnsEdit"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsEdit"></tr>
     </table>

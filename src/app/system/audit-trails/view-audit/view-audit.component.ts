@@ -85,12 +85,25 @@ export class ViewAuditComponent implements OnInit {
    * Initalizes Audit Trail Commands Data.
    */
   get auditTrailCommandsData() {
-    return Object.entries(JSON.parse(this.auditTrailData.commandAsJson)).map(
-      ([
-        key,
-        value
-      ]) => ({ command: key, commandValue: value })
-    );
+    if (!this.auditTrailData || !this.auditTrailData.commandAsJson) {
+      return [];
+    }
+
+    try {
+      const parsed = JSON.parse(this.auditTrailData.commandAsJson);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return Object.entries(parsed).map(
+          ([
+            key,
+            value
+          ]) => ({ command: key, commandValue: value })
+        );
+      }
+      return [];
+    } catch (err) {
+      console.error('Invalid commandAsJson in audit trail:', err);
+      return [];
+    }
   }
 
   /**

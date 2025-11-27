@@ -207,7 +207,7 @@ export class LoansAccountTermsStepComponent implements OnInit, OnChanges {
         isEqualAmortization: this.loansAccountTermsData.isEqualAmortization,
         interestType: this.loansAccountTermsData.interestType.id,
         // TODO: 2025-03-17: Is this correct?
-        isFloatingInterestRate: this.loansAccountTermsData.isLoanProductLinkedToFloatingRate ? false : '',
+        isFloatingInterestRate: this.loansAccountTermsData.isLoanProductLinkedToFloatingRate ? false : null,
         interestCalculationPeriodType: this.loansAccountTermsData.interestCalculationPeriodType.id,
         allowPartialPeriodInterestCalculation: this.loansAccountTermsData.allowPartialPeriodInterestCalculation,
         inArrearsTolerance: this.loansAccountTermsData.inArrearsTolerance,
@@ -294,12 +294,12 @@ export class LoansAccountTermsStepComponent implements OnInit, OnChanges {
       if (this.allowAddDisbursementDetails()) {
         this.loansAccountTermsForm.addControl(
           'maxOutstandingLoanBalance',
-          new UntypedFormControl(this.loansAccountTermsData.maxOutstandingLoanBalance, Validators.required)
+          new UntypedFormControl(this.loansAccountTermsData?.maxOutstandingLoanBalance ?? null, Validators.required)
         );
       } else {
         this.loansAccountTermsForm.addControl(
           'maxOutstandingLoanBalance',
-          new UntypedFormControl(this.loansAccountTermsData.maxOutstandingLoanBalance)
+          new UntypedFormControl(this.loansAccountTermsData?.maxOutstandingLoanBalance ?? null)
         );
       }
     }
@@ -333,7 +333,7 @@ export class LoansAccountTermsStepComponent implements OnInit, OnChanges {
         amortizationType: this.loansAccountTermsData.amortizationType.id,
         isEqualAmortization: this.loansAccountTermsData.isEqualAmortization,
         interestType: this.loansAccountTermsData.interestType.id,
-        isFloatingInterestRate: this.loansAccountTermsData.isLoanProductLinkedToFloatingRate ? false : '',
+        isFloatingInterestRate: this.loansAccountTermsData.isLoanProductLinkedToFloatingRate ? false : null,
         interestCalculationPeriodType: this.loansAccountTermsData.interestCalculationPeriodType.id,
         allowPartialPeriodInterestCalculation: this.loansAccountTermsData.allowPartialPeriodInterestCalculation,
         inArrearsTolerance: this.loansAccountTermsData.inArrearsTolerance,
@@ -358,20 +358,19 @@ export class LoansAccountTermsStepComponent implements OnInit, OnChanges {
     // this.setCustomValidators();
     this.setLoanTermListener();
 
-    // This is already done in ngOnChanges
-    // this.loansAccountTermsForm.removeControl('maxOutstandingLoanBalance');
-    // if (this.allowAddDisbursementDetails()) {
-    //   this.loansAccountTermsForm.removeControl('maxOutstandingLoanBalance');
-    //   this.loansAccountTermsForm.addControl(
-    //     'maxOutstandingLoanBalance',
-    //     new UntypedFormControl(this.loansAccountTermsData.maxOutstandingLoanBalance, Validators.required)
-    //   );
-    // } else {
-    //   this.loansAccountTermsForm.addControl(
-    //     'maxOutstandingLoanBalance',
-    //     new UntypedFormControl(this.loansAccountTermsData.maxOutstandingLoanBalance)
-    //   );
-    // }
+    this.loansAccountTermsForm.removeControl('maxOutstandingLoanBalance');
+    if (this.allowAddDisbursementDetails()) {
+      this.loansAccountTermsForm.removeControl('maxOutstandingLoanBalance');
+      this.loansAccountTermsForm.addControl(
+        'maxOutstandingLoanBalance',
+        new UntypedFormControl(this.loansAccountTermsData?.maxOutstandingLoanBalance ?? null, Validators.required)
+      );
+    } else {
+      this.loansAccountTermsForm.addControl(
+        'maxOutstandingLoanBalance',
+        new UntypedFormControl(this.loansAccountTermsData?.maxOutstandingLoanBalance ?? null)
+      );
+    }
   }
 
   allowAddDisbursementDetails() {
@@ -498,7 +497,7 @@ export class LoansAccountTermsStepComponent implements OnInit, OnChanges {
       interestChargedFromDate: [''],
       interestRatePerPeriod: [''],
       interestType: [''],
-      isFloatingInterestRate: [''],
+      isFloatingInterestRate: [null],
       isEqualAmortization: [''],
       amortizationType: [
         '',

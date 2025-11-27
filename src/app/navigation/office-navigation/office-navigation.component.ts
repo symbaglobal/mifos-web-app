@@ -23,6 +23,7 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
     MatCardTitleGroup,
     MatCardTitle,
     MatCardSubtitle,
+    MatCardContent,
     ExternalIdentifierComponent,
     DateFormatPipe
   ]

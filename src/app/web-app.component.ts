@@ -6,8 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 
 /** rxjs Imports */
-import { merge, Subscription } from 'rxjs';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { merge, Subscription, Subject } from 'rxjs';
+import { filter, map, mergeMap, takeUntil, take } from 'rxjs/operators';
 
 /** Translation Imports */
 import { TranslateService } from '@ngx-translate/core';
@@ -108,6 +108,7 @@ export class WebAppComponent implements OnInit, OnDestroy {
   i18nService = inject(I18nService);
 
   private authSubscription: Subscription;
+  private destroy$ = new Subject<void>();
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
@@ -179,13 +180,17 @@ export class WebAppComponent implements OnInit, OnDestroy {
           return route;
         }),
         filter((route) => route.outlet === 'primary'),
-        mergeMap((route) => route.data)
+        mergeMap((route) => route.data),
+        takeUntil(this.destroy$)
       )
       .subscribe((event) => {
         const title = event['title'] ? `labels.text.${event['title']}` : 'APP_NAME';
-        this.i18nService.translate(title).subscribe((titleTranslated: any) => {
-          this.titleService.setTitle(titleTranslated);
-        });
+        this.i18nService
+          .translate(title)
+          .pipe(take(1))
+          .subscribe((titleTranslated: any) => {
+            this.titleService.setTitle(titleTranslated);
+          });
       });
 
     // Stores top 100 user activites as local storage object.
@@ -196,7 +201,7 @@ export class WebAppComponent implements OnInit, OnDestroy {
       activities = length > 100 ? activitiesArray.slice(length - 100) : activitiesArray;
     }
     // Store route URLs array in local storage on navigation end.
-    onNavigationEnd.subscribe(() => {
+    onNavigationEnd.pipe(takeUntil(this.destroy$)).subscribe(() => {
       activities.push(this.router.url);
       localStorage.setItem('mifosXLocation', JSON.stringify(activities));
     });
@@ -258,6 +263,8 @@ export class WebAppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
